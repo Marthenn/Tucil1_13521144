@@ -2,7 +2,6 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
-#include <array>
 #include <sstream>
 
 const std::string validCard [] = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
@@ -36,7 +35,15 @@ std::string convertInt(int card){
 }
 
 bool cardValidation(std::string card){
-    return std::any_of(std::begin(validCard), std::end(validCard), [&](std::string s){return s == card;});
+    int i = 0;
+    bool stat = false;
+    while(!stat && i<13){
+        if(card == validCard[i]){
+            stat = true;
+        }
+        i++;
+    }
+    return stat;
 }
 
 bool inputValidation(std::string input){
@@ -91,7 +98,7 @@ void saveToFile(int* cards){
         std::cin>>fileName;
     }
     fileName = "test/" + fileName;
-    file.open(fileName, std::ios::app);
+    file.open(fileName);
     // Change this parts later on as the solver (this is just placeholder to test)
     for(int i = 0; i < 4; i++){
         file << convertInt(cards[i]) << " ";
