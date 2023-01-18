@@ -79,3 +79,24 @@ int* randomInput(){
     }
     return cards;
 }
+
+void saveToFile(int* cards){
+    std::ofstream file;
+    std::string fileName;
+    std::cout<<"Masukkan nama file: ";
+    std::cin>>fileName;
+    while(fileName.empty()){
+        std::cout<<"Nama file tidak boleh kosong."<<std::endl;
+        std::cout<<"Masukkan nama file: ";
+        std::cin>>fileName;
+    }
+    fileName = "test/" + fileName;
+    file.open(fileName, std::ios::app);
+    // Change this parts later on as the solver (this is just placeholder to test)
+    for(int i = 0; i < 4; i++){
+        file << convertInt(cards[i]) << " ";
+    }
+    // End of placeholder
+    file << std::endl;
+    file.close();
+}
