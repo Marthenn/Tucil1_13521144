@@ -59,7 +59,7 @@ bool inputValidation(std::string input){
     return count == 4;
 }
 
-int* userInput(){
+std::vector<int> userInput(){
     bool valid = false;
     std::string input;
     while(!valid){
@@ -69,20 +69,20 @@ int* userInput(){
             std::cout << "Masukan tidak sesuai." << std::endl;
         }
     }
-    static int cards[4];
+    static std::vector<int> cards;
     std::istringstream iss(input);
     for(int i = 0; i < 4; i++){
         iss >> input;
-        cards[i] = convertCard(input);
+        cards.push_back(convertCard(input));
     }
     return cards;
 }
 
-int* randomInput(){
-    static int cards[4];
+std::vector<int> randomInput(){
+    static std::vector<int> cards;
     srand((unsigned) time(NULL));
     for(int i = 0; i < 4; i++){
-        cards[i] = rand() % 13 + 1;
+        cards.push_back(rand() % 13 + 1);
     }
     return cards;
 }

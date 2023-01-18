@@ -2,6 +2,7 @@
 #define IOHANDLING_HPP
 
 #include <string>
+#include <vector>
 
 /**
  * @brief This function is used to convert the card input to an integer.
@@ -35,17 +36,17 @@ bool inputValidation(std::string input);
 
 /**
  * @brief This function is used to get the user input for the cards.
- * @return Returns the user input in a list.
+ * @return Returns the user input in a vector of four integers.
  * @note The user input is validated before returning.
 */
-int* userInput();
+std::vector <int> userInput();
 
 /**
  * @brief This function is used to get four cards randomly
- * @return Returns the random cards in a list.
+ * @return Returns the random cards in a vector of four integers.
  * @note The random cards will always be valid. 
  */
-int* randomInput();
+std::vector <int> randomInput();
 
 /**
  * @brief This function is used to save the result to a file.
