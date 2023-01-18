@@ -56,11 +56,10 @@ int* userInput(){
     bool valid = false;
     std::string input;
     while(!valid){
-        std::cout << "Enter four cards: ";
         std::getline(std::cin, input);
         valid = inputValidation(input);
         if(!valid){
-            std::cout << "Invalid input. Please try again." << std::endl;
+            std::cout << "Masukan tidak sesuai." << std::endl;
         }
     }
     static int cards[4];
