@@ -4,6 +4,14 @@
 #include <string>
 
 /**
+ * @brief This function is used to convert the card input to an integer.
+ * 
+ * @param card The symbol of the card (A, 2, 3, ..., 10, J, Q, K)
+ * @return The value of card in integer (A = 1, 2 = 2, 3 = 3, ..., 10 = 10, J = 11, Q = 12, K = 13)
+ */
+int convertCard(std::string card);
+
+/**
  * @brief This function is used to validate the card input.
  * @param card The card numbers to be validated (A, 2, 3, ..., 10, J, Q, K)
  * @return Returns true if the input is a card from a poker deck, false otherwise.
