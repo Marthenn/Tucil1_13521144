@@ -12,6 +12,14 @@
 int convertCard(std::string card);
 
 /**
+ * @brief This function is used to convert an integer to a card symbol (Range 1 - 13)
+ * 
+ * @param card The card value in integer (A = 1, 2 = 2, 3 = 3, ..., 10 = 10, J = 11, Q = 12, K = 13)
+ * @return The symbol of the card according to its value (A, 2, 3, ..., 10, J, Q, K)
+ */
+std::string convertInt(int card);
+
+/**
  * @brief This function is used to validate the card input.
  * @param card The card numbers to be validated (A, 2, 3, ..., 10, J, Q, K)
  * @return Returns true if the input is a card from a poker deck, false otherwise.
@@ -30,13 +38,13 @@ bool inputValidation(std::string input);
  * @return Returns the user input in a list.
  * @note The user input is validated before returning.
 */
-int userInput();
+int* userInput();
 
 /**
  * @brief This function is used to get four cards randomly
  * @return Returns the random cards in a list.
  * @note The random cards will always be valid. 
  */
-int randomInput();
+int* randomInput();
 
 #endif
