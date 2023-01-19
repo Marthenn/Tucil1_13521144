@@ -10,7 +10,7 @@ int main(){
     std::cout<<"Apakah ingin memasukkan kartu? (y/n) ";
     std::cin>>input;
     while(input != "y" && input != "n" && input != "Y" && input != "N"){
-        std::cout<<"Masukan tidak sesuai."<<std::endl;
+        std::cout<<"Masukan tidak sesuai"<<std::endl;
         std::cout<<"Apakah ingin memasukkan kartu? (y/n) ";
         std::cin>>input;
     }
@@ -41,13 +41,13 @@ int main(){
     std::cout<<"Apakah ingin menyimpan hasil ke file? (y/n) ";
     std::cin>>input;
     while(input != "y" && input != "n" && input != "Y" && input != "N"){
-        std::cout<<"Masukan tidak sesuai."<<std::endl;
+        std::cout<<"Masukan tidak sesuai"<<std::endl;
         std::cout<<"Apakah ingin menyimpan hasil ke file? (y/n) ";
         std::cin>>input;
     }
     if(input == "y" || input == "Y"){
         saveToFile();
     }
-    std::cout<<"Waktu eksekusi: "<<duration.count()<<" microseconds"<<std::endl;
+    std::cout<<"Waktu eksekusi: "<<duration.count()<<" ms"<<std::endl;
     return 0;
 }
