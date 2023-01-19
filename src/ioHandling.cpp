@@ -97,7 +97,6 @@ void saveToFile(){
         std::cout<<"Masukkan nama file: ";
         std::cin>>fileName;
     }
-    fileName = "test/" + fileName;
     file.open(fileName);
     extern std::vector<std::string> solutions;
     if (solutions.size() == 0){
