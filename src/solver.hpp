@@ -11,7 +11,7 @@ extern std::vector<std::string> solutions;
  * 
  * @param cards The base vector to be permutated
  */
-void permute(std::vector<int> cards, int current, int size);
+void permute(std::vector<int> cards, int current);
 
 /**
  * @brief This function is used as a master function to solve the 24 cards game by calling other functions

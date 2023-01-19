@@ -27,7 +27,7 @@ int main(){
         std::cout<<std::endl;
     }
     auto start = std::chrono::high_resolution_clock::now();
-    permute(vec, 0, 3);
+    permute(vec, 0);
     auto stop = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
     if(solutions.size() == 0){

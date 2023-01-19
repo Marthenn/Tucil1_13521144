@@ -10,14 +10,14 @@ void swap(int &x, int &y){
     y = temp;
 }
 
-void permute(std::vector<int> vec, int current, int size){
-    if(current == size){
+void permute(std::vector<int> vec, int current){
+    if(current == 3){
         solve(vec, "");
     }
 
-    for(int i = current; i<=size; i++){
+    for(int i = current; i<=3; i++){
         swap(vec[current], vec[i]);
-        permute(vec, current + 1, size);
+        permute(vec, current + 1);
         swap(vec[current], vec[i]);
     }
 }
