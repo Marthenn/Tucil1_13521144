@@ -1,4 +1,5 @@
 #include "solver.hpp"
+#include "ioHandling.hpp"
 #include <iostream>
 
 std::vector<std::string> solutions;
@@ -58,8 +59,8 @@ void traverseSolve(std::vector<int> cards, std::string expression, int operation
     }
     cards.push_back(num3);
     if(expression == ""){
-        expression = std::to_string(num1);
+        expression = convertInt(num1);
     }
-    expression = "(" + expression + " " + operation_symbols[operation] + " " + std::to_string(num2) + ")";
+    expression = "(" + expression + " " + operation_symbols[operation] + " " + convertInt(num2) + ")";
     solve(cards, expression);
 }
