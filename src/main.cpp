@@ -13,14 +13,14 @@ int main(){
         std::cout<<"Masukan tidak sesuai."<<std::endl;
         std::cout<<"Apakah ingin memasukkan kartu? (y/n) ";
         std::cin>>input;
-        // INPUT HANDLING INI BELUM BENAR KARENA KE DOUBLE KALAU SAMA USER INPUT
     }
+    std::cin.ignore(1, '\n');
     if(input == "y" || input == "Y"){
         std::cout<<"Masukkan 4 kartu (A, 2, 3, ..., 10, J, Q, K) dipisahkan dengan spasi:" << std::endl;
         vec = userInput();
     } else {
         vec = randomInput();
-        std::cout<<"Kartu yang dihasilkan: ";
+        std::cout<<"Kartu yang dihasilkan:\n";
         for(auto x:vec){
             std::cout<<convertInt(x)<<" ";
         }
@@ -28,16 +28,16 @@ int main(){
     }
     auto start = std::chrono::high_resolution_clock::now();
     permute(vec, 0, 3);
-    std::cout<<solutions.size()<<" solutions found"<<std::endl;
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
     if(solutions.size() == 0){
         std::cout<<"Tidak ada solusi"<<std::endl;
     } else {
+        std::cout<<solutions.size()<<" solusi ditemukan"<<std::endl;
         for(auto x:solutions){
             std::cout<<x<<std::endl;
         }
     }
-    auto stop = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
     std::cout<<"Apakah ingin menyimpan hasil ke file? (y/n) ";
     std::cin>>input;
     while(input != "y" && input != "n" && input != "Y" && input != "N"){
