@@ -87,7 +87,7 @@ std::vector<int> randomInput(){
     return cards;
 }
 
-void saveToFile(int* cards){
+void saveToFile(){
     std::ofstream file;
     std::string fileName;
     std::cout<<"Masukkan nama file: ";
@@ -99,11 +99,14 @@ void saveToFile(int* cards){
     }
     fileName = "test/" + fileName;
     file.open(fileName);
-    // Change this parts later on as the solver (this is just placeholder to test)
-    for(int i = 0; i < 4; i++){
-        file << convertInt(cards[i]) << " ";
+    extern std::vector<std::string> solutions;
+    if (solutions.size() == 0){
+        file << "Tidak ada solusi";
+        file << std::endl;
+    } else {
+        for(auto x: solutions){
+            file << x << std::endl;
+        }
     }
-    // End of placeholder
-    file << std::endl;
     file.close();
 }

@@ -51,8 +51,7 @@ std::vector <int> randomInput();
 /**
  * @brief This function is used to save the result to a file.
  * 
- * @param cards The cards used in the game (in integer value)
  */
-void saveToFile(int* cards);
+void saveToFile();
 
 #endif
