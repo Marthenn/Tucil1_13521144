@@ -1,53 +1,54 @@
-#include "ioHandling.hpp"
+#include "ioHandler.hpp"
 #include "solver.hpp"
-#include <iostream>
+
 #include <chrono>
 
 int main(){
-    extern std::vector<std::string> solutions;
-    std::vector<int> vec;
+    std::cout << "Input dari user atau random? (user/random): ";
     std::string input;
-    std::cout<<"Apakah ingin memasukkan kartu? (y/n) ";
-    std::cin>>input;
-    while(input != "y" && input != "n" && input != "Y" && input != "N"){
-        std::cout<<"Masukan tidak sesuai"<<std::endl;
-        std::cout<<"Apakah ingin memasukkan kartu? (y/n) ";
-        std::cin>>input;
+    std::cin >> input;
+    while(input != "user" && input != "random"){
+        std::cout << "Input tidak valid. Input dari user atau random? (user/random): ";
+        std::cin >> input;
     }
-    std::cin.ignore(1, '\n');
-    if(input == "y" || input == "Y"){
-        std::cout<<"Masukkan 4 kartu (A, 2, 3, ..., 10, J, Q, K) dipisahkan dengan spasi:" << std::endl;
-        vec = userInput();
+    std::vector<int> cards;
+    std::cin.ignore(256, '\n');
+    if(input == "user"){
+        cards = userInput();
     } else {
-        vec = randomInput();
-        std::cout<<"Kartu yang dihasilkan:\n";
-        for(auto x:vec){
-            std::cout<<convertInt(x)<<" ";
+        cards = randomInput();
+        std::cout << "Kartu yang didapat: ";
+        for(auto x:cards){
+            std::cout << valueToCard(x) << " ";
         }
-        std::cout<<std::endl;
+        std::cout << std::endl;
     }
+
     auto start = std::chrono::high_resolution_clock::now();
-    permute(vec, 0);
+    solve(cards);
     auto stop = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+    std::chrono::duration<double, std::milli> duration = stop - start;
+
     if(solutions.size() == 0){
-        std::cout<<"Tidak ada solusi"<<std::endl;
+        std::cout << "Tidak ada solusi" << std::endl;
     } else {
-        std::cout<<solutions.size()<<" solusi ditemukan"<<std::endl;
+        std::cout << solutions.size() << " solusi ditemukan" << std::endl;
         for(auto x:solutions){
-            std::cout<<x<<std::endl;
+            std::cout << x << std::endl;
         }
     }
-    std::cout<<"Apakah ingin menyimpan hasil ke file? (y/n) ";
-    std::cin>>input;
+
+    std::cout << "Waktu eksekusi: " << duration.count() << " ms" << std::endl;
+
+    std::cout << "Apakah ingin menyimpan hasil ke file? (y/n) ";
+    std::cin >> input;
     while(input != "y" && input != "n" && input != "Y" && input != "N"){
-        std::cout<<"Masukan tidak sesuai"<<std::endl;
-        std::cout<<"Apakah ingin menyimpan hasil ke file? (y/n) ";
-        std::cin>>input;
+        std::cout << "Input tidak valid. Apakah ingin menyimpan hasil ke file? (y/n) ";
+        std::cin >> input;
     }
+    std::cin.ignore(256, '\n');
     if(input == "y" || input == "Y"){
-        saveToFile();
+        writeToFile();
     }
-    std::cout<<"Waktu eksekusi: "<<duration.count()<<" ms"<<std::endl;
     return 0;
 }

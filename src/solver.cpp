@@ -1,66 +1,87 @@
+#include "ioHandler.hpp"
 #include "solver.hpp"
-#include "ioHandling.hpp"
-#include <iostream>
 
-std::vector<std::string> solutions;
+extern std::set<std::string> solutions;
 
-void swap(int &x, int &y){
-    int temp = x;
-    x = y;
-    y = temp;
+const char ops[] = {'+', '-', '*', '/'};
+
+bool compare(float a, float b){
+    return (a-b < 0.0001 && a-b > -0.0001);
+}
+
+void swap(int *a, int *b){
+    int temp = *a;
+    *a = *b;
+    *b = temp;
 }
 
 void permute(std::vector<int> vec, int current){
-    if(current == 3){
-        solve(vec, "");
-    }
-
-    for(int i = current; i<=3; i++){
-        swap(vec[current], vec[i]);
-        permute(vec, current + 1);
-        swap(vec[current], vec[i]);
-    }
-}
-
-void solve(std::vector<int> cards, std::string expression){
-    if(cards.size() == 1){
-        if(cards[0] == 24){
-            solutions.push_back(expression);
+    if(current == vec.size()){
+        std::string solution = "";
+        for(int i = 0; i < vec.size(); i++){
+            solution += valueToCard(vec[i]);
         }
-        return;
+        brute(vec);
     }
-    for(int i = 0; i < 4; i++){
-        traverseSolve(cards, expression, i);
+
+    for(int i = current; i < vec.size(); i++){
+        swap(&vec[current], &vec[i]);
+        permute(vec, current + 1);
+        swap(&vec[current], &vec[i]);
     }
 }
 
-void traverseSolve(std::vector<int> cards, std::string expression, int operation){
-    int num1 = cards.back(); cards.pop_back();
-    int num2 = cards.back(); cards.pop_back();
-    int num3;
-    char operation_symbols[] = {'+', '-', '*', '/'};
-    switch(operation){
-        case 0:
-            num3 = num1 + num2;
-            break;
-        case 1:
-            num3 = num1 - num2;
-            break;
-        case 2:
-            num3 = num1 * num2;
-            break;
-        case 3:
-            if (num2 == 0) return;
-            if (num1 % num2 != 0) return;
-            num3 = num1 / num2;
-            break;
-        default:
-            break;
+float calculate(float a, float b, char op){
+    if(op == '+'){
+        return a+b;
     }
-    cards.push_back(num3);
-    if(expression == ""){
-        expression = convertInt(num1);
+    if(op == '-'){
+        return a-b;
     }
-    expression = "(" + expression + " " + operation_symbols[operation] + " " + convertInt(num2) + ")";
-    solve(cards, expression);
+    if(op == '*'){
+        return a*b;
+    }
+    if(op == '/'){
+        return a/b;
+    }
+    return 0;
+}
+
+void solve(std::vector<int> cards){
+    permute(cards, 0);
+}
+
+void brute(std::vector<int> cards){
+    for(auto op1: ops){
+        for(auto op2: ops){
+            for(auto op3: ops){
+
+                // (((a b) c) d)
+                if(compare(calculate(calculate(calculate(cards[0], cards[1], op1), cards[2], op2), cards[3], op3), 24.0f)){
+                    solutions.insert("(((" + valueToCard(cards[0]) + op1 + valueToCard(cards[1]) + ")" + op2 + valueToCard(cards[2]) + ")" + op3 + valueToCard(cards[3]) + ")");
+                }
+
+                // ((a (b c)) d)
+                if(compare(calculate(calculate(cards[0], calculate(cards[1], cards[2], op2), op1), cards[3], op3), 24.0f)){
+                    solutions.insert("((" + valueToCard(cards[0]) + op1 + "(" + valueToCard(cards[1]) + op2 + valueToCard(cards[2]) + "))" + op3 + valueToCard(cards[3]) + ")");
+                }
+
+                // (a ((b c) d)
+                if(compare(calculate(cards[0], calculate(calculate(cards[1], cards[2], op2), cards[3], op3), op1), 24.0f)){
+                    solutions.insert("(" + valueToCard(cards[0]) + op1 + "((" + valueToCard(cards[1]) + op2 + valueToCard(cards[2]) + ")" + op3 + valueToCard(cards[3]) + "))");
+                }
+
+                // (a (b (cd)))
+                if(compare(calculate(cards[0], calculate(cards[1], calculate(cards[2], cards[3], op3), op2), op1), 24.0f)){
+                    solutions.insert("(" + valueToCard(cards[0]) + op1 + "(" + valueToCard(cards[1]) + op2 + "(" + valueToCard(cards[2]) + op3 + valueToCard(cards[3]) + ")))");
+                }
+
+                // ((ab) (cd))
+                if(compare(calculate(calculate(cards[0], cards[1], op1), calculate(cards[2], cards[3], op3), op2), 24.0f)){
+                    solutions.insert("((" + valueToCard(cards[0]) + op1 + valueToCard(cards[1]) + ")" + op2 + "(" + valueToCard(cards[2]) + op3 + valueToCard(cards[3]) + "))");
+                }
+
+            }
+        }
+    }
 }
