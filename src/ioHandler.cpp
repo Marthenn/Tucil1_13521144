@@ -65,7 +65,7 @@ std::vector<int> userInput(){
     std::string input;
     std::getline(std::cin, input);
     while(!inputValidation(input)){
-        std::cout << "Input tidak valid. Masukkan 4 kartu: ";
+        std::cout << "Input tidak valid\nMasukkan 4 kartu: ";
         std::getline(std::cin, input);
     }
     std::stringstream ss(input);
@@ -92,7 +92,7 @@ void writeToFile(){
     std::getline(std::cin, fileName);
     file.open(fileName);
     if(!file.is_open()){
-        std::cout << "File tidak dapat dibuka." << std::endl;
+        std::cout << "File tidak dapat diakses" << std::endl;
         return;
     }
     if(solutions.empty()){

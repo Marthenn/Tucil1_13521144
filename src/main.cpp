@@ -8,7 +8,7 @@ int main(){
     std::string input;
     std::cin >> input;
     while(input != "user" && input != "random"){
-        std::cout << "Input tidak valid. Input dari user atau random? (user/random): ";
+        std::cout << "Input tidak valid\nInput dari user atau random? (user/random): ";
         std::cin >> input;
     }
     std::vector<int> cards;
@@ -22,6 +22,8 @@ int main(){
             std::cout << valueToCard(x) << " ";
         }
         std::cout << std::endl;
+        std::cout << "Tekan enter untuk melanjutkan...";
+        std::cin.get(); 
     }
 
     auto start = std::chrono::high_resolution_clock::now();
@@ -43,12 +45,14 @@ int main(){
     std::cout << "Apakah ingin menyimpan hasil ke file? (y/n) ";
     std::cin >> input;
     while(input != "y" && input != "n" && input != "Y" && input != "N"){
-        std::cout << "Input tidak valid. Apakah ingin menyimpan hasil ke file? (y/n) ";
+        std::cout << "Input tidak valid\nApakah ingin menyimpan hasil ke file? (y/n) ";
         std::cin >> input;
     }
     std::cin.ignore(256, '\n');
     if(input == "y" || input == "Y"){
         writeToFile();
     }
+    std::cout << "Tekan enter untuk melanjutkan...";
+    std::cin.get(); 
     return 0;
 }
