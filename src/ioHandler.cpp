@@ -79,8 +79,9 @@ std::vector<int> userInput(){
 
 std::vector<int> randomInput(){
     std::vector<int> cards;
+    srand((unsigned) time(NULL));
     for(int i = 0; i < 4; i++){
-        cards.push_back(rand() % 13);
+        cards.push_back(rand() % 13 + 1);
     }
     return cards;
 }
@@ -96,7 +97,7 @@ void writeToFile(){
         return;
     }
     if(solutions.empty()){
-        std::cout << "Tidak ada solusi" << std::endl;
+        file << "Tidak ada solusi" << std::endl;
         return;
     }
     for (auto i = solutions.begin(); i != solutions.end(); i++){
